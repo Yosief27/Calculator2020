@@ -27,20 +27,6 @@ max_min = {"max": max, "min": min}
 # helping funtion
 
 
-# def function_math(wtok):
-
-#     if wtok.get_current() == 'sin':
-#         return math.sin
-#     elif wtok.get_current() == 'cos':
-#         return math.cos
-#     elif wtok.get_current() == 'exp':
-#         return math.exp
-#     elif wtok.get_current() == 'log':
-#         return math.log
-#     else:
-#         return None
-
-
 def expression(wtok):
     result = term(wtok)
     while wtok.get_current() == '+' or wtok.get_current() == '-':
@@ -84,8 +70,7 @@ def factor(wtok):
         elif wtok.get_current() != ')':
             raise CalculatorException(
                 f"***Expected  a left parentheses or number but found '{wtok.get_current()}'")
-        # if wtok.has_next() :
-        #     wtok.next()
+
     # check a number
     elif wtok.is_number():                          # should be a number
         result = float(wtok.get_current())
@@ -122,7 +107,7 @@ def factor(wtok):
                 raise PositionError(
                     f"Error. Undefined variable: '{wtok.get_current()}'")
 
-        elif wtok.get_current() in ("max", "min", "sum"):
+        elif wtok.get_current() in ("max", "min"):
             maxmin = max_min[wtok.get_current()]
 
             wtok.next()
@@ -192,9 +177,6 @@ def assignment(wtok):
             else:
                 raise PositionError(
                     f"***Error: Expected variable after ’=’\n ***The error occured at token '{wtok.get_current()}' just after token '{wtok.get_previous()}'")
-    # elif wtok.get_current()=='':
-
-    #         raise PositionError(f"***Error:Unexpected EOF\n***The error occured at token '{wtok.get_current()}' just after token'{wtok.get_previous()}'")
 
     return result
 
